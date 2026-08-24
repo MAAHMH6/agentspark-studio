@@ -16,7 +16,7 @@ type Positioned = {
   id: string;
 };
 
-type HubPos = { cluster: Cluster; x: number; y: number; lx: number; ly: number; anchor: string };
+type HubPos = { cluster: Cluster; x: number; y: number; lx: number; ly: number; anchor: "start" | "middle" | "end" };
 
 type Selection =
   | { kind: "agent"; agent: Agent; cluster: Cluster }
@@ -49,7 +49,7 @@ function useLayout() {
       const hy = CY + R1 * Math.sin(angle);
       const lx = CX + R1 * 1.16 * Math.cos(angle);
       const ly = CY + R1 * 1.16 * Math.sin(angle);
-      const anchor = Math.cos(angle) > 0.25 ? "start" : Math.cos(angle) < -0.25 ? "end" : "middle";
+      const anchor: "start" | "middle" | "end" = Math.cos(angle) > 0.25 ? "start" : Math.cos(angle) < -0.25 ? "end" : "middle";
       hubs.push({ cluster: cl, x: hx, y: hy, lx, ly, anchor });
 
       const spread = Math.min(cl.agents.length * 0.42, 2.3);
