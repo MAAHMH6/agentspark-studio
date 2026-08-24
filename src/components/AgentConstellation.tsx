@@ -78,10 +78,14 @@ export default function AgentConstellation() {
   const [hovered, setHovered] = useState<string | null>(null);
   const [mounted, setMounted] = useState(false);
 
-  useEffect(() => {
-    const t = window.setTimeout(() => setMounted(true), 60);
-    return () => window.clearTimeout(t);
-  }, []);
+  const [waking, setWaking] = useState(false);
+
+  const wakeUp = () => {
+    if (mounted || waking) return;
+    setWaking(true);
+    window.setTimeout(() => setMounted(true), 120);
+  };
+
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
